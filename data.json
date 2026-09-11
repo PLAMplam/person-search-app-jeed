@@ -1,0 +1,43 @@
+[
+  {
+    "id": "USR-001",
+    "personal_info": {
+      "first_name_th": "กรองทอง",
+      "last_name_th": "สุนทรนันท์",
+      "first_name_en": "Krongthong",
+      "last_name_en": "Soonthonnan",
+      "nickname_th": "จิ๊ด",
+      "nickname_en": "Jid"
+    },
+    "professional_background": [
+      {
+        "role": "Center Operation Manager",
+        "type": "Management"
+      },
+      {
+        "role": "Cabin Crew",
+        "organization": "Qatar Airways",
+        "type": "Aviation"
+      },
+      {
+        "role": "Cabin Leader Candidate",
+        "organization": "Nok Air",
+        "type": "Aviation"
+      }
+    ],
+    "associated_career_fields": [
+      "Software Engineer",
+      "Cloud Engineer",
+      "Facility Manager"
+    ],
+    "creative_works": {
+      "artist_type": "Independent Artist",
+      "discography": [
+        {
+          "title": "Watercolor Studio",
+          "type": "Single / Track"
+        }
+      ]
+    }
+  }
+]
