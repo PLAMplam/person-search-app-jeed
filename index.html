@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบค้นหาข้อมูลบุคคล</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+        input { width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        .card { border: 1px solid #e1e4e8; padding: 16px; border-radius: 8px; margin-top: 16px; background-color: #f6f8fa; }
+        .tag { background: #e1f5fe; color: #0288d1; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h2>ระบบค้นหาข้อมูลบุคคล</h2>
+    <input type="text" id="searchInput" placeholder="พิมพ์ชื่อ, นามสกุล หรือชื่อเล่น..." oninput="search()">
+    <div id="results"></div>
+
+    <script>
+        let peopleData = [];
+
+        // ดึงไฟล์ JSON อัตโนมัติเมื่อเปิดหน้าเว็บ
+        fetch('data.json')
+            .then(res => res.json())
+            .then(data => { peopleData = data; });
+
+        function search() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const container = document.getElementById('results');
+            container.innerHTML = '';
+
+            if (!query) return;
+
+            const filtered = peopleData.filter(item => {
+                const p = item.personal_info;
+                const searchString = `${p.first_name_th} ${p.last_name_th} ${p.first_name_en} ${p.last_name_en} ${p.nickname_th} ${p.nickname_en}`.toLowerCase();
+                return searchString.includes(query);
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<p style="color: #666;">ไม่พบข้อมูลที่ตรงกัน</p>';
+                return;
+            }
+
+            filtered.forEach(person => {
+                const p = person.personal_info;
+                const jobs = person.professional_background.map(b => b.role).join(', ');
+                container.innerHTML += `
+                    <div class="card">
+                        <h3>${p.first_name_th} ${p.last_name_th} (${p.nickname_th})</h3>
+                        <p><strong>English:</strong> ${p.first_name_en} ${p.last_name_en} (${p.nickname_en})</p>
+                        <p><strong>ตำแหน่ง/ประสบการณ์:</strong> ${jobs}</p>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
